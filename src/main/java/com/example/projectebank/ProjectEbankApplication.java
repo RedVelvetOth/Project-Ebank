@@ -6,15 +6,10 @@ import com.example.projectebank.dtos.CurrentBankAccountDTO;
 import com.example.projectebank.dtos.SavingBankAccountDTO;
 import com.example.projectebank.entities.*;
 import com.example.projectebank.enums.AccountStatus;
-import com.example.projectebank.enums.OperationType;
-import com.example.projectebank.exceptions.BankAccountNotFound;
 import com.example.projectebank.exceptions.ClientNotFoundException;
-import com.example.projectebank.exceptions.InsufficientBalanceException;
-import com.example.projectebank.repositories.AccountOperationRepository;
 import com.example.projectebank.repositories.BankAccountRepository;
 import com.example.projectebank.repositories.ClientRepository;
 import com.example.projectebank.sevices.BankAccountService;
-import com.example.projectebank.sevices.BankService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -53,8 +48,8 @@ public class ProjectEbankApplication {
             for (BankAccountDTO bankAccount : bankAccounts) {
                 for (int i = 0; i < 10; i++) {
                     String accountID;
-                    if (bankAccount instanceof SavingBankAccountDTO){
-                        accountID = ((SavingBankAccountDTO) bankAccount).getId();
+                    if (bankAccount instanceof SavingBankAccountDTO savingbankaccountdto){
+                        accountID = savingbankaccountdto.getId();
                     } else {
                         accountID = ((CurrentBankAccountDTO) bankAccount).getId();
                     }
@@ -67,8 +62,7 @@ public class ProjectEbankApplication {
     }
     //@Bean
     CommandLineRunner start(ClientRepository clientRepository,
-                            BankAccountRepository bankAccountRepository,
-                            AccountOperationRepository accountOperationRepository) {
+                            BankAccountRepository bankAccountRepository) {
         return args -> {
             Stream.of("Laura", "Theo", "Francesca").forEach(name -> {
                 Client client = new Client();
