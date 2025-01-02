@@ -1,6 +1,5 @@
 package com.example.projectebank.security;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -21,10 +20,13 @@ import java.util.stream.Collectors;
 @RequestMapping("/auth")
 public class SecurityController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
-    @Autowired
-    private JwtEncoder jwtEncoder;
+    private final AuthenticationManager authenticationManager;
+    private final JwtEncoder jwtEncoder;
+
+    public SecurityController(AuthenticationManager authenticationManager, JwtEncoder jwtEncoder) {
+        this.authenticationManager = authenticationManager;
+        this.jwtEncoder = jwtEncoder;
+    }
 
     @GetMapping("/profile")
     public Authentication authentication(Authentication authentication){
