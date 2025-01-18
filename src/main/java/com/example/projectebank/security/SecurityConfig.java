@@ -37,12 +37,14 @@ public class SecurityConfig {
 
     @Value("${jwt.secret}")
     private String secretKey;
+    @Value("${jwt.password}")
+    private String password;
 
     @Bean
     public InMemoryUserDetailsManager inMemoryUserDetailsManager(){
         return new InMemoryUserDetailsManager(
-                User.withUsername("user1").password(passwordEncoder().encode("12345")).authorities("USER").build(),
-                User.withUsername("admin").password(passwordEncoder().encode("12345")).authorities("USER", "ADMIN").build()
+                User.withUsername("user1").password(passwordEncoder().encode(password)).authorities("USER").build(),
+                User.withUsername("admin").password(passwordEncoder().encode(password)).authorities("USER", "ADMIN").build()
         );
     }
 

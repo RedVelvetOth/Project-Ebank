@@ -21,7 +21,6 @@ public class ClientRESTcontroller {
     public List<ClientDTO> clients(){
         return bankAccountService.listClients();
     }
-
     @GetMapping("/clients/search")
     @PreAuthorize("hasAuthority('SCOPE_USER')")
     public List<ClientDTO> searchClients(@RequestParam(name = "keyword", defaultValue = "") String keyword){
